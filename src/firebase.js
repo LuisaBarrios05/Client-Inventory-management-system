@@ -2,8 +2,9 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
+
 const firebaseConfig = {
-  apiKey: "AIzaSyDP-jTuMPWBskK3kwC8gDtICqWwCXxoNko",
+  apikey: import.meta.env.VITE_API_KEY
 };
 
 // Initialize Firebase
