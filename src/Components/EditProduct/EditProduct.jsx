@@ -49,8 +49,14 @@ const EditProduct = () => {
     const fetchProduct = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get(`${ApiUrl}/detail/${id}`);
-        console.log(response)
+        const auth = getAuth();
+        const token = await auth.currentUser.getIdToken();
+        const response = await axios.get(`${ApiUrl}/detail/${id}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          }
+        });
+        
         const productData = response.data.product || {};
         const medidas = productData.medidas || {};
 

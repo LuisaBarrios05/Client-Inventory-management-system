@@ -54,8 +54,13 @@ const CardDetail = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`${ApiUrl}/detail/${id}`);
-        console.log(response);
+        const auth = getAuth();
+        const token = await auth.currentUser.getIdToken();
+        const response = await axios.get(`${ApiUrl}/detail/${id}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          }
+        });
         const productData = response.data;
 
         const medidas = productData.product.medidas

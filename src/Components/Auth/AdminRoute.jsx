@@ -1,4 +1,3 @@
-// src/components/AdminRoute.jsx
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../../Hooks/useAuth';
 
@@ -9,10 +8,17 @@ const AdminRoute = ({ children }) => {
         return <div>Cargando...</div>;
     }
 
-    if (!user || !isAdmin) {
+    if (!user) {
+        
+        return <Navigate to="/" replace />;
+    }
+
+    if (!isAdmin) {
         
         return <Navigate to="/home" replace />;
     }
+
+
 
     return children;
 };

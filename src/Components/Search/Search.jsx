@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { ApiUrl } from '../../config/config';
+import { getAuth } from 'firebase/auth';
 
 const Search = ({ onSearchResults }) => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -24,7 +25,13 @@ const Search = ({ onSearchResults }) => {
             setNoResults(false);
 
             try {
-                const response = await axios.get(`${ApiUrl}/products/?name=${searchTerm}`);
+                const auth = getAuth();
+                const token = await auth.currentUser.getIdToken();
+                const response = await axios.get(`${ApiUrl}/products/?name=${searchTerm}`, {
+                    headers: {
+                      'Authorization': `Bearer ${token}`,
+                    }
+                  });
                 const products = response.data;
                 if (products.length === 0) {
                     setNoResults(true);

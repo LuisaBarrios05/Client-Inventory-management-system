@@ -37,10 +37,16 @@ const Filters = ({ setProducts }) => {
   const inputRef = useRef(null);
 
 
-  const loadProducts = () => {
+  const loadProducts = async () => {
     if (selectedFilters.length > 0) {
       const categoria = selectedFilters.join(',');
-      axios.get(`${ApiUrl}/products/?category=${categoria}`)
+      const auth = getAuth();
+      const token = await auth.currentUser.getIdToken();
+      axios.get(`${ApiUrl}/products/?category=${categoria}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        }
+      })
         .then(response => {
           setProducts(response.data);
           console.log("Products reloaded after price update", response.data);
@@ -98,16 +104,26 @@ const Filters = ({ setProducts }) => {
   }, []);
 
   useEffect(() => {
+
+    async function getProductsFilters() {
+      
     if (selectedFilters.length > 0) {
       const categoria = selectedFilters.join(',');
-      axios.get(`${ApiUrl}/products/?category=${categoria}`)
+      const auth = getAuth();
+      const token = await auth.currentUser.getIdToken();
+      axios.get(`${ApiUrl}/products/?category=${categoria}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        }
+      })
         .then(response => {
           setProducts(response.data);
           console.log("get realizado", response.data);
         })
         .catch(error => {
         });
-    }
+    } }
+    getProductsFilters();
   }, [selectedFilters, setProducts]);
 
   const handleCheckboxChange = (event) => {

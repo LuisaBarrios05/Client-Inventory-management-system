@@ -4,6 +4,7 @@ import Filters from "../../Components/Filters/Filters"
 import Search from "../../Components/Search/Search"
 import axios from 'axios';
 import { ApiUrl } from "../../config/config"
+import { getAuth } from 'firebase/auth';
 
 const Products = () => {
     const [products, setProducts] = useState([]);
@@ -16,7 +17,13 @@ const Products = () => {
             setIsLoading(true);
             setHasError(false);
             try {
-                const response = await axios.get(`${ApiUrl}/products/`);
+                const auth = getAuth();
+                const token = await auth.currentUser.getIdToken();
+                const response = await axios.get(`${ApiUrl}/products/`, {
+                    headers: {
+                      'Authorization': `Bearer ${token}`,
+                    }
+                  });
                 console.log(response)
                 setProducts(response.data);
                 setSearchResults(response.data);

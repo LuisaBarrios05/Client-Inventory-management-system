@@ -1,4 +1,3 @@
-import './App.css'
 import './index.css'
 import { useEffect } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';

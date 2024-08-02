@@ -36,7 +36,13 @@ const CostPercentages = () => {
     const fetchCosts = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get(`${ApiUrl}/cost-percentages`);
+        const auth = getAuth();
+        const token = await auth.currentUser.getIdToken();
+        const response = await axios.get(`${ApiUrl}/cost-percentages`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          }
+        });
         const responseData = response.data;
         setFormData({
           ...responseData

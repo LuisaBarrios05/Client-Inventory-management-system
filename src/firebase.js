@@ -1,10 +1,9 @@
-// src/firebase.js
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
 
 const firebaseConfig = {
-  apikey: import.meta.env.VITE_API_KEY
+  apiKey: import.meta.env.VITE_API_KEY
 };
 
 // Initialize Firebase
