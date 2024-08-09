@@ -1,6 +1,6 @@
 [Sistema de Gestión de Inventario - Frontend](https://client-inventory-management-system.vercel.app/login)
 
-Este repositorio contiene el código del lado del cliente para una privada de gestión de inventarios. El proyecto está construido utilizando tecnologías web modernas y está diseñado para ayudar a gestionar inventarios de productos de manera eficiente.
+Este repositorio contiene el código del lado del cliente para una privada gestión de inventario.
 
 ## Tecnologías Utilizadas
 
